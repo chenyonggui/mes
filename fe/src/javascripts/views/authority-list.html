@@ -1,0 +1,95 @@
+<div class="box position-list">
+    <div id="myModal" class="modal fade bs-example-modal-lg" data="">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-wrap" style="width:400px;height:300px; margin: 200px auto;">
+                <div style="width:400px;height:100px; text-align:center;line-height: 100px;font-size: 42px">信息管理</div>
+                <form class="form-horizontal" id="update-form">
+                  <div class="box-body"  style="top: 100px;">
+                      <div class="form-group">
+                          <label for="password" class="col-sm-2 control-label">密码</label>
+          
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" name="password" id="password" placeholder="请输入新密码">
+                          </div>
+                      </div>
+                      <div class="form-group">    
+                          <label for="authority" class="col-sm-2 control-label">权限</label>
+                         
+                          <div class="col-sm-10">
+                              <select class="form-control" name="authority" id="authority">
+                                  <option>普通管理员</option>
+                                  <option>高级管理员</option>
+                                  <option>超级管理员</option>
+                              </select>
+                          </div>
+                      </div> 
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer" style="margin:50px auto;">
+                      <button type="button" id="cancel" class="btn btn-default">取消修改</button>
+                      <button type="submit" class="btn btn-info pull-right">保存更改</button>
+                  </div>
+                  <!-- /.box-footer -->
+              </form>
+            </div>
+        </div>
+    </div>
+  
+    {{ if data.items.length > 0 }}
+    <div class="box-body">
+      
+      <table class="table table-bordered position-list__tabel">
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>姓名</th>
+          <th>工号</th>
+          <th>权限</th>
+          <th>部门</th>
+          <th style="width: 140px">操作</th>
+        </tr>
+        {{ each data.items }}
+        <tr data-id="{{ $value._id }}">
+          <td>{{if data.pageInfo.pageNo !=1}} {{ ~~data.pageInfo.pageSize*(data.pageInfo.pageNo-1)+$index+1}} {{else}} {{ $index+1}} {{/if}}</td>
+          
+          <td>{{ $value.username }}</td>
+          <td>{{ $value.number }}
+          </td>
+          <td >{{if $value.authority=='0' }}{{'超级管理员'}}{{else if $value.authority=='1'}}{{'高级管理员'}}{{else}}{{'普通管理员'}}{{/if}}</td>
+          <td>{{ $value.section }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary pos-update"posid="" pageno="" keywords=""><span class="fa fa-edit"></span>
+              修改</button>
+            <button class="btn btn-sm btn-danger pos-remove" posid="" pageno="" pagecount="" pagesize="" keywords=""
+              filename=""><span class="fa fa-remove"></span> 删除</button>
+          </td>
+        </tr>
+        {{ /each }}
+      </table>
+      
+    </div>
+    <div class="box-footer clearfix">
+      <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a  href="#/authority-list?search=<%=data.pageInfo.search%>&pageNo=<%= (data.pageInfo.pageNo > 1) ? data.pageInfo.pageNo - 1 : data.pageInfo.pageNo%>">&laquo;</a></li>
+        <% for(var i = 0; i < data.pageInfo.totalPage; i++){ %>
+            <li class="{{if data.pageInfo.pageNo == i+1}}active{{/if}}"><a href="#/authority-list?search=<%=data.pageInfo.search%>&pageNo=<%= i+1 %>"><%= i+1 %></a></li>
+        <% } %>
+        <li><a href="#/authority-list?search=<%=data.pageInfo.search%>&pageNo=<%= (data.pageInfo.pageNo < data.pageInfo.totalPage) ? ~~data.pageInfo.pageNo + 1 : data.pageInfo.totalPage %>">&raquo;</a></li>
+       
+      </ul>
+    </div>
+    
+    {{ else }}
+      <div class="box box-default">
+          <div class="box-header with-border">
+            <!-- <h3 class="box-title">Blank Box</h3> -->
+          </div>
+          <div class="box-body">
+              当前没有管理员信息，快去添加吧...
+          </div>
+          <!-- /.box-body -->
+        </div>
+      {{ /if }}
+
+      
+  </div>
+  <!-- /.box -->

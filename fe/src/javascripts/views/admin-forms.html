@@ -1,0 +1,27 @@
+{{ if type !== 'signup' }}
+<h1></h1>
+<div class="content1">
+	<h2>登录</h2>
+	<form id="signin-form">
+		<input required type="text" name="username"   placeholder="用户名">
+		<input required type="password" name="pwd" placeholder="密码">
+		<div class="button-row">
+			<input type="submit" class="sign-in" id="sign-in" value="登录">
+			<input type="button" class="reset reg" data-type="signup" value="注册">
+			<div class="clear"></div>
+		</div>
+	</form>
+</div>
+{{ else }}
+
+<div class="content2">
+	<h2>注册</h2>
+	<form id="signUp-form">
+		<input required type="text" name="username" placeholder="用户名" >
+		<input required type="text" name="number" placeholder="工号">
+		<input type="text" name="section"placeholder="部门" >
+		<input required type="password" name="password" placeholder="密码" >
+		<input type="submit" class="register" id="register"  value="注册">
+	</form>
+</div>
+{{ /if }}
